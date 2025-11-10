@@ -34,7 +34,7 @@ const login = asyncHandler(async (req, res) => {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid email or password');
   }
 
-  const { accessToken, refreshToken } = tokenService.generateTokens({ id: user._id, email: user.email });
+  const { accessToken, refreshToken } = tokenService.generateTokens({ ...user });
   await tokenService.saveRefreshToken(user._id, refreshToken);
   
   const loggedInUser = await User.findById(user._id).select('-password');
@@ -44,7 +44,25 @@ const login = asyncHandler(async (req, res) => {
   );
 });
 
+const refreshToken = asyncHandler(async (req, res) => {
+    const { refreshToken } = req.body;
+    if (!refreshToken) {
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Refresh token is required');
+    }
+
+    const user = await tokenService.verifyRefreshToken(refreshToken);
+    await Token.deleteOne({ token: refreshToken });
+
+    const tokens = tokenService.generateTokens({ ...user.toObject() });
+    await tokenService.saveRefreshToken(user._id, tokens.refreshToken);
+
+    return res.status(httpStatus.OK).json(
+        new ApiResponse(httpStatus.OK, tokens, 'Tokens refreshed successfully')
+    );
+});
+
 module.exports = {
   signup,
   login,
+  refreshToken,
 };

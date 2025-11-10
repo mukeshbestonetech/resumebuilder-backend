@@ -16,9 +16,11 @@ app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 // API Routes
 const authRouter = require('./api/routes/auth.routes');
 const userRouter = require('./api/routes/user.routes');
+const resumeRouter = require('./api/routes/resume.routes');
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
+app.use('/api/resumes', resumeRouter);
 
 // Swagger UI route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
