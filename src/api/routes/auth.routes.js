@@ -62,4 +62,27 @@ router.post('/signup', authController.signup);
  */
 router.post('/signin', authController.login);
 
+/**
+ * @swagger
+ * /auth/refresh:
+ *   post:
+ *     summary: Refresh access token
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - refreshToken
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *     responses:
+ *       "200":
+ *         description: Tokens refreshed successfully.
+ */
+router.post('/refresh', authController.refreshToken);
+
 module.exports = router;

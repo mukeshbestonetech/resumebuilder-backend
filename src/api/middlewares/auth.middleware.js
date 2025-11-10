@@ -12,7 +12,7 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-    req.user = decoded; // Attach user payload to request
+    req.user = decoded?._doc; // Attach user payload to request
     next();
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Unauthorized: Invalid token');
