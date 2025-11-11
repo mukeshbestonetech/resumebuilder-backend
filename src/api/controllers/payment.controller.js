@@ -20,7 +20,6 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
       userId: user._id.toString(),
     }
   });
-  console.log("Created Stripe Checkout Session:", session);
   // if it's first time create customer
   if (!user.stripeCustomerId) {
     // retrieve session.customer

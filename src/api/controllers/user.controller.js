@@ -17,7 +17,16 @@ const getUserById = asyncHandler(async (req, res) => {
   return res.status(httpStatus.OK).json(new ApiResponse(httpStatus.OK, user));
 });
 
+const getUserDetails = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id).select('-password');
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  return res.status(httpStatus.OK).json(new ApiResponse(httpStatus.OK, user));
+});
+
 module.exports = {
   getUsers,
   getUserById,
+  getUserDetails
 };
