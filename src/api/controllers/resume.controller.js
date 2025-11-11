@@ -68,7 +68,6 @@ const generatePdf = asyncHandler(async (req, res) => {
         }
 
         const templatePath = path.join(__dirname, `../templates/${template}.html`);
-        console.log('Template Path:', templatePath);
         if (!fs.existsSync(templatePath)) {
             return res.status(400).send('Template not found');
         }

@@ -69,6 +69,8 @@ router.get('/', userController.getUsers);
  *       "404":
  *         description: User not found.
  */
+router.get('/details', userController.getUserDetails);
 router.get('/:id', userController.getUserById);
+
 
 module.exports = router;
