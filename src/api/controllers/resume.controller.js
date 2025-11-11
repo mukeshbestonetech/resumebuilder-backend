@@ -12,16 +12,6 @@ const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
  * @param {string} prompt - The prompt to send to the AI.
  * @returns {Promise<string>} A promise that resolves to the AI-generated text.
  */
-async function generateAIContent(prompt) {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // Return a dummy response based on the prompt
-    if (prompt.includes('summary')) {
-        return "Highly motivated and detail-oriented software engineer with 5 years of experience in building and maintaining web applications. Proficient in JavaScript, React, and Node.js. Passionate about creating intuitive user experiences and solving complex problems.";
-    }
-    return "AI-generated content based on prompt: " + prompt;
-}
 
 const generateProfessionalSummary = asyncHandler(async (req, res) => {
     try {

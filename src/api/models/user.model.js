@@ -14,6 +14,18 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Password is required'],
     minlength: 6,
   },
+  plan: {
+    type: String,
+    enum: ['free', 'basic', 'pro'],
+    default: 'free',
+  },
+  stripeCustomerId: {
+    type: String,
+  },
+  resumeLimit: {
+    type: Number,
+    default: 2,
+  },
 }, { timestamps: true });
 
 // Hash password before saving

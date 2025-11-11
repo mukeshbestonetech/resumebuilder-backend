@@ -17,10 +17,14 @@ app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 const authRouter = require('./api/routes/auth.routes');
 const userRouter = require('./api/routes/user.routes');
 const resumeRouter = require('./api/routes/resume.routes');
+const paymentRouter = require('./api/routes/payment.routes');
+const webhookRouter = require('./api/routes/webhook.routes');
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/resumes', resumeRouter);
+app.use('/api/payment', paymentRouter);
+app.use('/api/webhook', webhookRouter);
 
 // Swagger UI route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
